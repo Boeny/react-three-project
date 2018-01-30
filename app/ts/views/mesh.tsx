@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { Euler, FlatShading, VertexColors } from 'three';
+import { Euler, Color, FlatShading, VertexColors } from 'three';
 import { getColor } from './test/actions';
 
 
@@ -8,17 +8,25 @@ interface Props {
     rotation: Euler;
 }
 
-export const Mesh = observer((props: Props) => {
-    console.log('render');
+interface ComponentProps extends Props {
+    color: Color;
+}
+
+export function MeshComponent(props: ComponentProps) {
+    const { rotation, color } = props;
     return (
-        <mesh rotation={props.rotation}>
-            <boxGeometry
-                width={1}
-                height={1}
-                depth={1}
+        <mesh rotation={rotation}>
+            <sphereGeometry
+                radius={1}
+                widthSegments={100}
+                heightSegments={100}
+                phiStart={0}
+                phiLength={Math.PI * 2}
+                thetaStart={0}
+                thetaLength={Math.PI}
             />
             <meshPhongMaterial
-                color={getColor()}
+                color={color}
                 specular={0x999999}
                 shading={FlatShading}
                 vertexColors={VertexColors}
@@ -27,4 +35,12 @@ export const Mesh = observer((props: Props) => {
             />
         </mesh>
     );
-});
+}
+
+
+export const Mesh = observer((props: Props) => (
+    <MeshComponent
+        color={getColor()}
+        rotation={props.rotation}
+    />
+));

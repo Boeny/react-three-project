@@ -16,7 +16,7 @@ declare namespace JSX {
         sphereGeometry: any;
         meshBasicMaterial: any;
         meshPhongMaterial: any;
-	    onUpdate?: () => void;
+        onUpdate?: () => void;
         onKeyDown?: () => void;
         onKeyUp?: () => void;
         onMouseDown?: () => void;

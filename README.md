@@ -1,1 +1,1 @@
-# react-three-template
+# react-three-project
